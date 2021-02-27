@@ -1,18 +1,56 @@
-* TODO
+* Manual
 
-#'trash-untrash-trash
-;; what if it cannot be successfully untrashed? say mother dir is
-;; missing, or original path is populated?
-#'trash-show-latest-trash
-#'trash-untrash-latest-trash
-#'trash-show-latest-nth-trash
-#'trash-untrash-latest-nth-trash
-#'trash-show-latest-trashes (n m)
-#'trash-untrash-latest-trashes (n m)
-#'trash-restore-file
-#'trash-untrash-trash
-;; need also a buffer/GUI interface to quickly select trashes to
-;; be restored.. or i should simply use dired? Something like
-;; #'trash-dired-restore-marked-files that only is supposed to be
-;; run in the trash dir.
-#'trash-dired-untrash-marked-trashes
+** Trash
+
+To delete files in dired, use =#'tr-dired-trash-marked-files=. If
+no files are marked, it trashes the file at point any way. While
+a file is trashed, the file is moved under =*tr-store*=, with this
+action recorded to the database =*tr-db*=.
+
+** Purge
+
+To purge database and the trash store, use =#'tr-purge=. This is a
+function that intakes a time predicate. All information that
+satisfies the time predicate will be removed completely. The
+users can also write their own time predicates and feed into the
+purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
+
+#+begin_src emacs-lisp
+(defun tr-purge-before-N-seconds-ago (N)
+  (tr-purge (lambda (time)
+              (> (ts-diff (ts-now) time) N))))
+
+(defun tr-purge-before-N-days-ago (N)
+  (tr-purge-before-N-seconds-ago (* N 60 60 24)))
+#+end_src
+
+** TODO Retrieve
+
+To retrieve trash, use =TODO=.
+
+** Basic variables
+
+=*tr-root-dir*=, =*tr-store*=, and =*tr-db*=.
+
+** Internals
+
+An =order= contains a =FROM= slot and a =TO= slot, as in
+
+#+begin_src emacs-lisp
+(defstruct tr-order from to)
+#+end_src
+
+To perform an =order= is to move the =FROM= file to the =TO= file. This
+is carried out by the function =#'tr-perform-order=. This function
+is one of the two main utilities that perform unsafe system
+change. The other main utility that does that is the =#'tr-purge=.
+It purges the trash database and the trash can itself.
+
+* Todo List
+
++ Make a better customizing experience for the users.
+
++ Add nice GIFs.
+
++ Make good keybindings that are compatible with doomemacs and
+  dired.
