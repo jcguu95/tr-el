@@ -1,7 +1,8 @@
 ;;; tr-purge.el -mode -*- coding: utf-8; lexical-binding: t; -*-
 
 (defun tr-purge-store (time-predicate)
-  "TODO"
+  "Purge all entries in the trash store *TR-STORE* that satisfy
+the TIME-PREDICATE."
   (let ((to-purge
          (-filter (-compose time-predicate #'ts-parse)
                   (-remove (lambda (x) (string= x "."))
@@ -10,9 +11,9 @@
     (loop for x in to-purge
           do (delete-directory (concat *tr-store* "/" x) t))))
 
-;; TODO Notice that the two purgers (db and store) don't to
-;; symmetric things. Add this notice in the readme.org.
 (defun tr-purge-db (time-predicate)
+  "Purge all entries in the database *TR-DB* that satisfy the
+TIME-PREDICATE."
   (let* ((all-records (tr-ls-all-records))
          (to-stay (-filter (lambda (x)
                              (not (funcall time-predicate
@@ -30,8 +31,12 @@
                            nil *tr-db* 'append))))
 
 (defun tr-purge (time-predicate)
+  "Purge all entries in the database *TR-DB* and the store
+*TR-STORE* that satisfy the TIME-PREDICATE."
   (tr-purge-store time-predicate)
   (tr-purge-db time-predicate))
+
+;; examples
 
 (defun tr-purge-before-N-seconds-ago (N)
   (tr-purge (lambda (time)

@@ -15,10 +15,9 @@
 (defstruct tr-record
   ts order status memo)
 
-(mkdir "/tmp/-trash" t)
-(mkdir "/tmp/-trash/store" t)
-(defvar *tr-db* "/tmp/-trash/tr.db")
-(defvar *tr-store* "/tmp/-trash/store")
+(mkdir (setq *tr-root-dir* "/tmp/-trash/") t)
+(mkdir (setq *tr-store* (concat *tr-root-dir* "store") t))
+(defvar *tr-db* (concat *tr-root-dir* "tr.db"))
 
 (defun tr-now ()
   (ts-format (ts-now)))
