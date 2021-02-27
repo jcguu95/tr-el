@@ -74,8 +74,9 @@ or undone by =#'tr-undo-order=. Upon any performance/undoing, a
 
 * Todo List
 
-+ Make a better customizing experience for the users.
+** Working..
 
++ Make a better retrieval experience..
 + Get used to dired, start using it, and add nice GIFs:
 
   1. Delete marked files.
@@ -88,7 +89,8 @@ or undone by =#'tr-undo-order=. Upon any performance/undoing, a
 
   5. Purge information and database.
 
+** Contribution
+
++ Make a better customizing experience for the users.
 + Make good keybindings that are compatible with doomemacs and
   dired.
-
-+ Make a better retrieval experience..
