@@ -34,7 +34,26 @@ purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
 
 ** TODO Retrieve
 
-To retrieve trash, use =TODO=.
+To retrieve a trash, simply call =#'tr-undo-order= on an =order=. The
+user can specify an performed =order= by first listing out the
+records, specify a record, and call =#'tr-record-order= on that
+record.
+
+To list all records, see =#'tr-ls-all-records= below.
+
+#+begin_src emacs-lisp
+(defun tr-ls-records-that (predicate)
+  "Return the list of records that satisfy PREDICATE."
+  (-filter predicate
+           (ignore-errors
+             (read (concat "(" (f-read-text *tr-db* 'utf-8) ")")))))
+
+(defun tr-ls-all-records ()
+  "Return all records from the database *TR-DB*"
+  (tr-ls-records-that (lambda (dummy) t)))
+#+end_src
+
++ TODO :: make a better retrieval experience..
 
 ** Some internals
 
