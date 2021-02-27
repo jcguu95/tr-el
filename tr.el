@@ -1,7 +1,10 @@
-;; Another attempt, as the old trash.el isn't as well designed as
-;; this.
-;;
-;; tr.el (tr for trash)
+;;; tr.el -mode -*- coding: utf-8; lexical-binding: t; -*-
+
+;; let user play with trash easily.. restore, inspect,
+;; eliminate trash with predicates.. etc
+
+;; estimate the size first before any operation!
+;; let user to add predicates to decide which trash goes to which pail
 
 (defstruct tr-order
   from to)
