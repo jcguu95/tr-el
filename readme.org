@@ -1,10 +1,7 @@
 * Manual
 
-** Basic variables
-
-=*tr-root-dir*=, =*tr-store*=, and =*tr-db*=.
-
-** Trash
+** Usage
+*** Trash
 
 To delete files in dired, use =#'tr-dired-trash-marked-files=. If
 no files are marked, it trashes the file at point any way. While
@@ -14,7 +11,7 @@ action recorded to the database =*tr-db*=.
 To undo the very last action, use =#'tr-undo!=. Notice that this
 function is almost inverse to itself.
 
-** TODO Retrieve
+*** Retrieve
 
 To retrieve a trash, simply call =#'tr-undo-order= on an =order=. The
 user can specify an performed =order= by first listing out the
@@ -35,9 +32,7 @@ To list all records, see =#'tr-ls-all-records= below.
   (tr-ls-records-that (lambda (dummy) t)))
 #+end_src
 
-+ TODO :: make a better retrieval experience..
-
-** Purge
+*** Purge
 
 To purge database and the trash store, use =#'tr-purge=. This is a
 function that intakes a time predicate. All information that
@@ -55,7 +50,13 @@ purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
   (tr-purge-before-N-seconds-ago (* N 60 60 24)))
 #+end_src
 
-** Some internals
+** Internals
+
+*** variables
+
+=*tr-root-dir*=, =*tr-store*=, and =*tr-db*=.
+
+*** structures
 
 #+begin_src emacs-lisp
 (defstruct tr-order
@@ -89,3 +90,5 @@ or undone by =#'tr-undo-order=. Upon any performance/undoing, a
 
 + Make good keybindings that are compatible with doomemacs and
   dired.
+
++ Make a better retrieval experience..
