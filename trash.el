@@ -21,21 +21,23 @@
 that this program prefers."
   (format-time-string "%Y%m%dT%H%M%S%z"))
 
-(defun trash-trash-file (file)
-  ;; TODO add batch removal.. to ensure things removed at the
-  ;; same time have the same timestamp.
-  (let* ((abso (file-truename file))
-         (now (trash-time-string))
-         (pail (concat *trash-store* "/" now))
-         (target (concat pail "/" (file-name-base abso))))
+(defun trash-trash-files (files)
+  "Trash all files in the list FILES to the trash-store directory
+specified by the moment the operation is performed."
+  (let ((now (trash-time-string)))
+    (loop for file in files
+          do (let* ((abso (file-truename file))
+                    (pail (concat *trash-store* "/" now))
+                    (target (concat pail "/" (file-name-base abso))))
 
-    (mkdir pail t)
-    (make-trash-record :timestamp now :file abso
-                       :message nil :memo "") ;; TODO let user add memo by option
-    ;; move file to trash.. in the correct destination named by
-    ;; timestamp report status
-    (rename-file abso target)))
+               (mkdir pail t)
+               (make-trash-record
+                :timestamp now :file abso
+                :message nil :memo "") ;; TODO Let user add memo by option.
+               (rename-file abso target) ;; TODO Better status report?
+               ))))
 
+(trash-trash-files '("~/test" "~/test2"))
 
 #'trash-trash-file
 #'trash-dired-trash-marked-files
