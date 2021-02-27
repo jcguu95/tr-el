@@ -1,0 +1,18 @@
+* TODO
+
+#'trash-untrash-trash
+;; what if it cannot be successfully untrashed? say mother dir is
+;; missing, or original path is populated?
+#'trash-show-latest-trash
+#'trash-untrash-latest-trash
+#'trash-show-latest-nth-trash
+#'trash-untrash-latest-nth-trash
+#'trash-show-latest-trashes (n m)
+#'trash-untrash-latest-trashes (n m)
+#'trash-restore-file
+#'trash-untrash-trash
+;; need also a buffer/GUI interface to quickly select trashes to
+;; be restored.. or i should simply use dired? Something like
+;; #'trash-dired-restore-marked-files that only is supposed to be
+;; run in the trash dir.
+#'trash-dired-untrash-marked-trashes

@@ -1,3 +1,6 @@
+;;; trash.el -mode -*- coding: utf-8; lexical-binding: t; -*-
+
+;;
 ;;  my trash.el
 ;;
 ;; goal:
@@ -14,12 +17,16 @@
 
 ;; TODO how to ensure transaction is either done or undone?
 (defstruct trash-record
-  timestamp files message memo)
+  timestamp files direction message memo)
 
+(require 'ts) thanks, alphapapa.
 (defun trash-time-string ()
   "Return the current time string with timezone in the format
 that this program prefers."
-  (format-time-string "%Y%m%dT%H%M%S%z"))
+  (ts-format (ts-now)))
+(defun trash-time-parse (str)
+  "The time parser this program favors."
+  (ts-parse str))
 
 (defun trash-write-record-to-db (trash-record)
   "Write TRASH-RECORD into the database under *TRASH-DB*."
@@ -37,11 +44,12 @@ timestamp a single trash-record, and write to the database."
     (loop for file in files
           do (let* ((abso (file-truename file))
                     (pail (concat *trash-store* "/" now))
-                    (target (concat pail "/" (file-name-base abso))))
+                    (target (concat pail "/" (file-name-nondirectory abso))))
                (mkdir pail t)
                (trash-write-record-to-db
                 (make-trash-record
                  :timestamp now :files files
+                 :direction 'in
                  ;; TODO Add options to add messages and memos.
                  :message nil :memo ""))
                ;; TODO Better status report?
@@ -55,24 +63,55 @@ is marked, using #'trash-trash-files."
   (interactive)
   (trash-trash-files (dired-get-marked-files)))
 
-#'trash-untrash-trash
-;; what if it cannot be successfully untrashed? say mother dir is
-;; missing, or original path is populated?
-#'trash-show-latest-trash
-#'trash-untrash-latest-trash
-#'trash-show-latest-nth-trash
-#'trash-untrash-latest-nth-trash
-#'trash-show-latest-trashes (n m)
-#'trash-untrash-latest-trashes (n m)
-#'trash-restore-file
-#'trash-untrash-trash
-;; need also a buffer/GUI interface to quickly select trashes to
-;; be restored.. or i should simply use dired? Something like
-;; #'trash-dired-restore-marked-files that only is supposed to be
-;; run in the trash dir.
-#'trash-dired-untrash-marked-trashes
+;; (defun filemeta-ls-data-files ()
+;;   "List all data files under *FILEMETA-ROOT-DIR*."
+;;   (directory-files-recursively *filemeta-root-dir* ""))
 
-#'trash-list
-#'trash-healthy-db
-#'trash-eliminate-file                  ; dangerous and shouldn't been used
-#'trash-eliminate-trash
+  ;; (ignore-errors (read (f-read-text data-file 'utf-8)))
+
+(defun trash-ls-db ()
+  "List all files under *TRASH-DB*"
+  (directory-files-recursively *trash-db* ""))
+
+(defun trash-read-db-file (db-file)
+  (ignore-errors (read (f-read-text db-file 'utf-8))))
+
+(defun trash-read-db ()
+  "Perform health check for the db *TRASH-DB*. If unhealthy,
+throw error. If healthy, returns all trash-records read from the
+db."
+  (if (eq (trash-health-check-db) 'healthy)
+      (loop for f in (trash-ls-db)
+            collect (trash-read-db-file f))
+      (error "*trash-db* is unhealthy. Use #'trash-health-check-db to manually detect patients.")))
+
+(defun trash-read-db-timely-sorted ()
+  "Return the timely sorted list of all trashes."
+  (-sort (lambda (a b)
+           (ts>= (ts-parse (trash-record-timestamp a))
+                 (ts-parse (trash-record-timestamp b))))
+         (trash-read-db)))
+
+(defun trash-ls-last-N-trash (N)
+  "List the last N trashes thrown in the db, sorted timely."
+  (-take N (trash-read-db-timely-sorted)))
+
+(defun trash-restore-trash (file trash-record)
+  "Restore FILE if it is a member of TRASH-RECORD."
+  (let ((time (trash-record-timestamp trash-record))
+        (files (trash-record-files trash-record)))
+    (if (member file files)
+        (rename-file ;; TODO how to handle/monitor potential errors?
+         (concat *trash-store* "/"
+                 time "/"
+                 (file-name-nondirectory file))
+         file)
+      (error "FILE is not a member in TRASH-RECORD."))))
+
+(defun trash-restore-all-from-trash-record (trash-record)
+  "Restore all files from the TRASH-RECORD"
+  (let ((files (trash-record-files trash-record)))
+    (loop for file in files
+          do (trash-restore-trash file trash-record))))
+
+(provide 'trash)
