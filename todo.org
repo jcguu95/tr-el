@@ -15,6 +15,8 @@
 
   5. Purge information and database.
 
++ Add a table of content for =readme.org=.
+
 ** Contribution
 
 + Make a better customizing experience for the users.
