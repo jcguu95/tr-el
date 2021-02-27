@@ -39,8 +39,9 @@ TIME-PREDICATE."
 ;; examples
 
 (defun tr-purge-before-N-seconds-ago (N)
-  (tr-purge (lambda (time)
-              (> (ts-diff (ts-now) time) N))))
+  (let ((pred (lambda (time)
+                (> (ts-diff (ts-now) time) N))))
+    (tr-purge pred)))
 
 (defun tr-purge-before-N-days-ago (N)
   (tr-purge-before-N-seconds-ago (* N 60 60 24)))
