@@ -1,5 +1,9 @@
 * Manual
 
+** Basic variables
+
+=*tr-root-dir*=, =*tr-store*=, and =*tr-db*=.
+
 ** Trash
 
 To delete files in dired, use =#'tr-dired-trash-marked-files=. If
@@ -20,8 +24,9 @@ purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
 
 #+begin_src emacs-lisp
 (defun tr-purge-before-N-seconds-ago (N)
-  (tr-purge (lambda (time)
-              (> (ts-diff (ts-now) time) N))))
+  (let ((pred (lambda (time)
+                (> (ts-diff (ts-now) time) N))))
+    (tr-purge pred)))
 
 (defun tr-purge-before-N-days-ago (N)
   (tr-purge-before-N-seconds-ago (* N 60 60 24)))
@@ -31,23 +36,21 @@ purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
 
 To retrieve trash, use =TODO=.
 
-** Basic variables
-
-=*tr-root-dir*=, =*tr-store*=, and =*tr-db*=.
-
-** Internals
-
-An =order= contains a =FROM= slot and a =TO= slot, as in
+** Some internals
 
 #+begin_src emacs-lisp
-(defstruct tr-order from to)
+(defstruct tr-order
+  from to)
+
+(defstruct tr-record
+  ts order status memo)
 #+end_src
 
-To perform an =order= is to move the =FROM= file to the =TO= file. This
-is carried out by the function =#'tr-perform-order=. This function
-is one of the two main utilities that perform unsafe system
-change. The other main utility that does that is the =#'tr-purge=.
-It purges the trash database and the trash can itself.
+An =order= contains a =FROM= slot and a =TO= slot, as in the code block
+above. A performance of an =order= means to overwrite the =FROM= file
+to the =TO= file. An =order= can be performed by =#'tr-perform-order=
+or undone by =#'tr-undo-order=. Upon any performance/undoing, a
+=record= is written in the database =*tr-db*=.
 
 * Todo List
 
