@@ -14,24 +14,6 @@ action recorded to the database =*tr-db*=.
 To undo the very last action, use =#'tr-undo!=. Notice that this
 function is almost inverse to itself.
 
-** Purge
-
-To purge database and the trash store, use =#'tr-purge=. This is a
-function that intakes a time predicate. All information that
-satisfies the time predicate will be removed completely. The
-users can also write their own time predicates and feed into the
-purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
-
-#+begin_src emacs-lisp
-(defun tr-purge-before-N-seconds-ago (N)
-  (let ((pred (lambda (time)
-                (> (ts-diff (ts-now) time) N))))
-    (tr-purge pred)))
-
-(defun tr-purge-before-N-days-ago (N)
-  (tr-purge-before-N-seconds-ago (* N 60 60 24)))
-#+end_src
-
 ** TODO Retrieve
 
 To retrieve a trash, simply call =#'tr-undo-order= on an =order=. The
@@ -55,6 +37,24 @@ To list all records, see =#'tr-ls-all-records= below.
 
 + TODO :: make a better retrieval experience..
 
+** Purge
+
+To purge database and the trash store, use =#'tr-purge=. This is a
+function that intakes a time predicate. All information that
+satisfies the time predicate will be removed completely. The
+users can also write their own time predicates and feed into the
+purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
+
+#+begin_src emacs-lisp
+(defun tr-purge-before-N-seconds-ago (N)
+  (let ((pred (lambda (time)
+                (> (ts-diff (ts-now) time) N))))
+    (tr-purge pred)))
+
+(defun tr-purge-before-N-days-ago (N)
+  (tr-purge-before-N-seconds-ago (* N 60 60 24)))
+#+end_src
+
 ** Some internals
 
 #+begin_src emacs-lisp
@@ -75,7 +75,17 @@ or undone by =#'tr-undo-order=. Upon any performance/undoing, a
 
 + Make a better customizing experience for the users.
 
-+ Add nice GIFs.
++ Get used to dired, start using it, and add nice GIFs:
+
+  1. Delete marked files.
+
+  2. Delete the file at point.
+
+  3. Undo!
+
+  4. Retrieve a trash by fuzzy search.
+
+  5. Purge information and database.
 
 + Make good keybindings that are compatible with doomemacs and
   dired.
