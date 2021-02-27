@@ -37,10 +37,12 @@ specified by the moment the operation is performed."
                (rename-file abso target) ;; TODO Better status report?
                ))))
 
-(trash-trash-files '("~/test" "~/test2"))
+(defun trash-dired-trash-marked-files ()
+  "In dired, trash the marked files, or the file at point if none
+is marked, using #'trash-trash-files."
+  (interactive)
+  (trash-trash-files (dired-get-marked-files)))
 
-#'trash-trash-file
-#'trash-dired-trash-marked-files
 #'trash-untrash-trash
 ;; what if it cannot be successfully untrashed? say mother dir is
 ;; missing, or original path is populated?
