@@ -79,12 +79,7 @@ FROM."
    (tr-record-order
     (car (tr-latest-record)))))
 
-
-
-;; TODO main user interface for selecting records to later
-;; perform undoing.
-(defun tr-select-records () "TODO")
-
 (require 'tr-ls)
 (require 'tr-dired)
 (require 'tr-purge)
+(require 'tr-retrieve)

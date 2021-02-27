@@ -7,6 +7,9 @@ no files are marked, it trashes the file at point any way. While
 a file is trashed, the file is moved under =*tr-store*=, with this
 action recorded to the database =*tr-db*=.
 
+To undo the very last action, use =#'tr-undo!=. Notice that this
+function is almost inverse to itself.
+
 ** Purge
 
 To purge database and the trash store, use =#'tr-purge=. This is a
