@@ -38,7 +38,7 @@ To purge database and the trash store, use =#'tr-purge=. This is a
 function that intakes a time predicate. All information that
 satisfies the time predicate will be removed completely. The
 users can also write their own time predicates and feed into the
-purger =#'tr-purge=. An example usage is given in =tr-purge.el=:
+purger =#'tr-purge=. An example usage is given below.
 
 #+begin_src emacs-lisp
 (defun tr-purge-before-N-seconds-ago (N)
@@ -72,25 +72,3 @@ to the =TO= file. An =order= can be performed by =#'tr-perform-order=
 or undone by =#'tr-undo-order=. Upon any performance/undoing, a
 =record= is written in the database =*tr-db*=.
 
-* Todo List
-
-** Working..
-
-+ Make a better retrieval experience..
-+ Get used to dired, start using it, and add nice GIFs:
-
-  1. Delete marked files.
-
-  2. Delete the file at point.
-
-  3. Undo!
-
-  4. Retrieve a trash by fuzzy search.
-
-  5. Purge information and database.
-
-** Contribution
-
-+ Make a better customizing experience for the users.
-+ Make good keybindings that are compatible with doomemacs and
-  dired.

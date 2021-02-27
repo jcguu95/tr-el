@@ -1,0 +1,22 @@
+* Todo List
+
+** Working..
+
++ Make a better retrieval experience..
++ Get used to dired, start using it, and add nice GIFs:
+
+  1. Delete marked files.
+
+  2. Delete the file at point.
+
+  3. Undo!
+
+  4. Retrieve a trash by fuzzy search.
+
+  5. Purge information and database.
+
+** Contribution
+
++ Make a better customizing experience for the users.
++ Make good keybindings that are compatible with doomemacs and
+  dired.
