@@ -17,6 +17,8 @@
 
 + Make it clear why the current solution isn't good enough.
 
++ Make the dependencies clear: ivy, dash, file, .. etc.
+
 ** Contribution
 
 + Which license to use?
