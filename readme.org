@@ -11,12 +11,15 @@ See =./doc/manual.org=.
 
 * Usage
 
-
 *Trash*
 
 #+begin_src emacs-lisp
+;;; With dired
 (tr-dired-trash-file-at-point)
 (tr-dired-trash-marked-files)
+
+;;; Manually
+(tr-trash-files '("~/note.md" "~/book.md"))
 #+end_src
 
 *Restore*
