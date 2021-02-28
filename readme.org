@@ -1,3 +1,7 @@
+#+OPTIONS: toc:2
+
+* Section
+#+TOC: headlines 1 local
 * Usage
 ** Trash
 
