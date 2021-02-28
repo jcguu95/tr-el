@@ -1,5 +1,4 @@
-
-* Usage
+* Content
 :PROPERTIES:
 :TOC:      :include all :depth 3
 :END:
@@ -13,7 +12,7 @@
   - [[#structures][structures]]
   - [[#list-records-and-orders][list records and orders]]
 :END:
-
+* Usage
 ** Trash
 
 To delete files in dired, use =#'tr-dired-trash-marked-files=. If
