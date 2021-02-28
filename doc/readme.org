@@ -16,14 +16,19 @@
 :END:
 * TL; DR.
 
-+ To trash file at point, evaluate =(tr-dired-trash-file-at-point)=.
+#+begin_src emacs-lisp
 
-+ To trash marked files, evaluate =(tr-dired-trash-marked-files)=.
+;; trash files in dired
+(tr-dired-trash-file-at-point)
+(tr-dired-trash-marked-files)
 
-+ To restore a trash, evaluate =(tr-ivy-select-restore)=.
+;; restore trash
+(tr-ivy-select-restore)
 
-+ To purge everything older than 3 days in the trash can and the
-  database =(tr-purge-before-N-days-ago 3)=.
+;; purge all data older than 3 days
+(tr-purge-all-older-than-N-days 3)
+
+#+end_src
 
 * Manual
 ** Trash
