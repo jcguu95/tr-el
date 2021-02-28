@@ -15,7 +15,6 @@ See =./doc/manual.org=.
 *Trash*
 
 #+begin_src emacs-lisp
-;; trash files in dired
 (tr-dired-trash-file-at-point)
 (tr-dired-trash-marked-files)
 #+end_src
@@ -23,21 +22,19 @@ See =./doc/manual.org=.
 *Restore*
 
 #+begin_src emacs-lisp
-;; restore trash
 (tr-ivy-select-restore)
 #+end_src
 
 *Purge*
 
 #+begin_src emacs-lisp
-;; purge all data older than 3 days
+;;; purge all trash and data older than 3 days
 (tr-purge-all-older-than-N-days 3)
 #+end_src
 
 *Variables*
 
 #+begin_src emacs-lisp
-;; basic variables
 *tr-root-dir*           ;; where the trash root is
 *tr-store*              ;; under which the trash is stored
 *tr-db*                 ;; the path to the internal database
