@@ -16,10 +16,11 @@
 :END:
 * TL; DR.
 
-+ To trash files (marked or at point), call
-  =#'tr-dired-trash-marked-files=.
++ To trash file at point, evaluate =(tr-dired-trash-file-at-point)=.
 
-+ To restore a trash, call =#'tr-ivy-select-restore=.
++ To trash marked files, evaluate =(tr-dired-trash-marked-files)=.
+
++ To restore a trash, evaluate =#'tr-ivy-select-restore=.
 
 + To purge everything older than 3 days in the trash can and the
   database =(tr-purge-before-N-days-ago 3)=.
