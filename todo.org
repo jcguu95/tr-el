@@ -2,7 +2,6 @@
 
 ** Working..
 
-+ Make a better retrieval experience..
 + Get used to dired, start using it, and add nice GIFs:
 
   1. Delete marked files.
@@ -19,6 +18,9 @@
 
 ** Contribution
 
++ Which license to use?
 + Make a better customizing experience for the users.
 + Make good keybindings that are compatible with doomemacs and
   dired.
++ Make a better retrieval experience.. how to let the user easily
+  select multiple entries from a Lisp list?
