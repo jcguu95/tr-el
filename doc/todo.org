@@ -15,6 +15,8 @@
 + Add =confirm= options for users.. make it default. Let user to
   switch off all confirmations.
 
++ Make it clear why the current solution isn't good enough.
+
 ** Contribution
 
 + Which license to use?

@@ -1,9 +1,16 @@
-* Usage
+* Get started
 
 *Install*
 
 No melpa yet. Simply evaluate the files, or add this repo into
 ='load-path=.
+
+*Manual*
+
+See =./doc/manual.org=.
+
+* Usage
+
 
 *Trash*
 
@@ -31,7 +38,7 @@ No melpa yet. Simply evaluate the files, or add this repo into
 
 #+begin_src emacs-lisp
 ;; basic variables
-*tr-root-dir* ;; where the trash root is
-*tr-store*    ;; under which the trash is stored
-*tr-db*       ;; the path to the internal database
+*tr-root-dir*           ;; where the trash root is
+*tr-store*              ;; under which the trash is stored
+*tr-db*                 ;; the path to the internal database
 #+end_src
