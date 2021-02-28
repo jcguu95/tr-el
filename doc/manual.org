@@ -30,6 +30,10 @@ shown.
      (lambda (x) (eq 'in (tr-type-of-record x)))))))
 #+end_src
 
+To use =helm= or other selectors, inspect the source of
+=#'tr-ivy-select-record=, and replace =#'ivy-read= inside by your
+favorite equivalents.
+
 ** Purge
 
 To purge database and the trash store, use =#'tr-purge=. This is a
