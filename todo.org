@@ -13,8 +13,6 @@
 
   5. Purge information and database.
 
-+ Add a table of content for =readme.org=.
-
 ** Contribution
 
 + Which license to use?
