@@ -12,6 +12,9 @@
 
   5. Purge information and database.
 
++ Add =confirm= options for users.. make it default. Let user to
+  switch off all confirmations.
+
 ** Contribution
 
 + Which license to use?

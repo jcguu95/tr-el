@@ -20,7 +20,7 @@
 
 + To trash marked files, evaluate =(tr-dired-trash-marked-files)=.
 
-+ To restore a trash, evaluate =#'tr-ivy-select-restore=.
++ To restore a trash, evaluate =(tr-ivy-select-restore)=.
 
 + To purge everything older than 3 days in the trash can and the
   database =(tr-purge-before-N-days-ago 3)=.
