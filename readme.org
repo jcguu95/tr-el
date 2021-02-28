@@ -19,7 +19,7 @@ See =./doc/manual.org=.
 (tr-dired-trash-marked-files)
 
 ;;; Manually
-(tr-trash-files '("~/note.md" "~/book.md"))
+(tr-trash-files '("~/note.md" "~/books/"))
 #+end_src
 
 *Restore*
