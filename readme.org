@@ -1,8 +1,19 @@
-#+OPTIONS: toc:2
 
-* Section
-#+TOC: headlines 1 local
 * Usage
+:PROPERTIES:
+:TOC:      :include all :depth 3
+:END:
+:CONTENTS:
+- [[#usage][Usage]]
+  - [[#trash][Trash]]
+  - [[#restore][Restore]]
+  - [[#purge][Purge]]
+- [[#internals][Internals]]
+  - [[#variables][variables]]
+  - [[#structures][structures]]
+  - [[#list-records-and-orders][list records and orders]]
+:END:
+
 ** Trash
 
 To delete files in dired, use =#'tr-dired-trash-marked-files=. If
