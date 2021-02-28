@@ -18,6 +18,7 @@
 ** Contribution
 
 + Which license to use?
++ Add into MELPA?
 + Make a better customizing experience for the users.
 + Make good keybindings that are compatible with doomemacs and
   dired.

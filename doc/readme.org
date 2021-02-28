@@ -17,6 +17,10 @@
 * TL; DR.
 
 #+begin_src emacs-lisp
+;; - Install -
+;;
+;; No melpa yet. Simply evaluate the files, or add this
+;; repo into 'LOAD-PATH.
 
 ;; trash files in dired
 (tr-dired-trash-file-at-point)
@@ -27,7 +31,6 @@
 
 ;; purge all data older than 3 days
 (tr-purge-all-older-than-N-days 3)
-
 #+end_src
 
 * Manual
