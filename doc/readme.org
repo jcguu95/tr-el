@@ -1,130 +1,37 @@
-* Content
-:PROPERTIES:
-:TOC:      :include all :depth 3
-:END:
-:CONTENTS:
-- [[#content][Content]]
-- [[#tl-dr][TL; DR.]]
-- [[#manual][Manual]]
-  - [[#trash][Trash]]
-  - [[#restore][Restore]]
-  - [[#purge][Purge]]
-  - [[#internals][Internals]]
-    - [[#variables][variables]]
-    - [[#structures][structures]]
-    - [[#list-records-and-orders][list records and orders]]
-:END:
-* TL; DR.
+* Usage
+
+*Install*
+
+No melpa yet. Simply evaluate the files, or add this repo into
+='load-path=.
+
+*Trash*
 
 #+begin_src emacs-lisp
-;; - Install -
-;;
-;; No melpa yet. Simply evaluate the files, or add this
-;; repo into 'LOAD-PATH.
-
 ;; trash files in dired
 (tr-dired-trash-file-at-point)
 (tr-dired-trash-marked-files)
+#+end_src
 
+*Restore*
+
+#+begin_src emacs-lisp
 ;; restore trash
 (tr-ivy-select-restore)
+#+end_src
 
+*Purge*
+
+#+begin_src emacs-lisp
 ;; purge all data older than 3 days
 (tr-purge-all-older-than-N-days 3)
+#+end_src
 
+*Variables*
+
+#+begin_src emacs-lisp
 ;; basic variables
 *tr-root-dir* ;; where the trash root is
 *tr-store*    ;; under which the trash is stored
 *tr-db*       ;; the path to the internal database
 #+end_src
-
-* Manual
-** Trash
-
-To delete files in dired, use =#'tr-dired-trash-marked-files=. If
-no files are marked, it trashes the file at point any way. While
-a file is trashed, the file is moved under =*tr-store*=, with this
-action recorded to the database =*tr-db*=.
-
-To undo the very last action, use =#'tr-undo!=. Notice that this
-function is almost inverse to itself.
-
-** Restore
-
-To restore a trash, call =#'tr-ivy-select-restore=. An =ivy-read=
-prompt will let the user select a record from the database.
-
-Its internal is =#'tr-ivy-select-record=, which by default let the
-user select a record from all records. It takes an optional
-predicate that helps filter the records to be shown. For example,
-in =#'tr-vy-select-restore= only the records of type ='in= will be
-shown.
-
-#+begin_src emacs-lisp
-(defun tr-ivy-select-restore ()
-  "Same as #'tr-ivy-select-undo, but the selection list only
-  contains records of type 'IN."
-  (tr-undo-record
-   (tr-record-order
-    (tr-ivy-select-record
-     (lambda (x) (eq 'in (tr-type-of-record x)))))))
-#+end_src
-
-** Purge
-
-To purge database and the trash store, use =#'tr-purge=. This is a
-function that intakes a time predicate. All information that
-satisfies the time predicate will be removed completely. The
-users can also write their own time predicates and feed into the
-purger =#'tr-purge=. An example usage is given below.
-
-#+begin_src emacs-lisp
-(defun tr-purge-all-older-than-N-seconds (N)
-  (let ((pred (lambda (time)
-                (> (ts-diff (ts-now) time) N))))
-    (tr-purge pred)))
-
-(defun tr-purge-all-older-than-N-days (N)
-  (tr-purge-before-N-seconds-ago (* N 60 60 24)))
-#+end_src
-
-** Internals
-
-*** variables
-
-=*tr-root-dir*=, =*tr-store*=, and =*tr-db*=.
-
-*** structures
-
-#+begin_src emacs-lisp
-(defstruct tr-order
-  from to)
-
-(defstruct tr-record
-  ts order status memo)
-#+end_src
-
-An =order= contains a =FROM= slot and a =TO= slot, as in the code block
-above. A performance of an =order= means to overwrite the =FROM= file
-to the =TO= file. An =order= can be performed by =#'tr-perform-order=
-or undone by =#'tr-undo-order=. Upon any performance/undoing, a
-=record= is written in the database =*tr-db*=.
-
-*** list records and orders
-
-To list all records, see =#'tr-ls-all-records= below.
-
-#+begin_src emacs-lisp
-(defun tr-ls-records-that (predicate)
-  "Return the list of records that satisfy PREDICATE."
-  (-filter predicate
-           (ignore-errors
-             (read (concat "(" (f-read-text *tr-db* 'utf-8) ")")))))
-
-(defun tr-ls-all-records ()
-  "Return all records from the database *TR-DB*"
-  (tr-ls-records-that (lambda (dummy) t)))
-#+end_src
-
-To transform a record to an order, use =#'tr-record-order=. To undo
-an order, call =#'tr-undo-order= on that order.
