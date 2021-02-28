@@ -79,6 +79,16 @@ FROM."
    (tr-record-order
     (car (tr-latest-record)))))
 
+(defun tr-type-of-record (record)
+  "A utility that distinguishes the type of the record RECORD.
+Return 'IN if the record's order's TO-slot is a subdirectory of
+*TR-STORE*."
+  (if (equal 0 (string-match
+                *tr-store*
+                (tr-order-to (tr-record-order record))))
+      'in
+    'out))
+
 (require 'tr-ls)
 (require 'tr-dired)
 (require 'tr-purge)
