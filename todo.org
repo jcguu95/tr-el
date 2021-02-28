@@ -1,6 +1,5 @@
 * Todo List
-** Working..
-
+** Working
 + Get used to dired, start using it, and add nice GIFs:
 
   1. Delete marked files.
