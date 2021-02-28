@@ -1,4 +1,4 @@
-;;; tr-retrieve.el -mode -*- coding: utf-8; lexical-binding: t; -*-
+;;; tr-restore.el -mode -*- coding: utf-8; lexical-binding: t; -*-
 
 ;; TODO main user interface for selecting records to later
 ;; TODO How to easily multiselect using ivy?
@@ -30,8 +30,4 @@
     (tr-ivy-select-record
      (lambda (x) (eq 'in (tr-type-of-record x)))))))
 
-(tr-type-of-record (tr-ivy-select-record))
-
-(string-match "\\(dog\\|cat\\)" "There are two cats here." 0) ;; => 14
-
-(provide 'tr-retrieve)
+(provide 'tr-restore)
