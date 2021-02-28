@@ -1,7 +1,5 @@
-* Manual
-
-** Usage
-*** Trash
+* Usage
+** Trash
 
 To delete files in dired, use =#'tr-dired-trash-marked-files=. If
 no files are marked, it trashes the file at point any way. While
@@ -11,7 +9,7 @@ action recorded to the database =*tr-db*=.
 To undo the very last action, use =#'tr-undo!=. Notice that this
 function is almost inverse to itself.
 
-*** Restore
+** Restore
 
 To restore a trash, call =#'tr-ivy-select-restore=. An =ivy-read=
 prompt will let the user select a record from the database.
@@ -19,7 +17,7 @@ prompt will let the user select a record from the database.
 Its internal is =#'tr-ivy-select-record=, which by default let the
 user select a record from all records. It takes an optional
 predicate that helps filter the records to be shown. For example,
-in =#'tr-vy-select-restore= only the records of type ='IN= will be
+in =#'tr-vy-select-restore= only the records of type ='in= will be
 shown.
 
 #+begin_src emacs-lisp
@@ -32,7 +30,7 @@ shown.
      (lambda (x) (eq 'in (tr-type-of-record x)))))))
 #+end_src
 
-*** Purge
+** Purge
 
 To purge database and the trash store, use =#'tr-purge=. This is a
 function that intakes a time predicate. All information that
@@ -50,13 +48,13 @@ purger =#'tr-purge=. An example usage is given below.
   (tr-purge-before-N-seconds-ago (* N 60 60 24)))
 #+end_src
 
-** Internals
+* Internals
 
-*** variables
+** variables
 
 =*tr-root-dir*=, =*tr-store*=, and =*tr-db*=.
 
-*** structures
+** structures
 
 #+begin_src emacs-lisp
 (defstruct tr-order
@@ -72,7 +70,7 @@ to the =TO= file. An =order= can be performed by =#'tr-perform-order=
 or undone by =#'tr-undo-order=. Upon any performance/undoing, a
 =record= is written in the database =*tr-db*=.
 
-*** list records and orders
+** list records and orders
 
 To list all records, see =#'tr-ls-all-records= below.
 
