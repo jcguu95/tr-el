@@ -31,6 +31,11 @@
 
 ;; purge all data older than 3 days
 (tr-purge-all-older-than-N-days 3)
+
+;; basic variables
+*tr-root-dir* ;; where the trash root is
+*tr-store*    ;; under which the trash is stored
+*tr-db*       ;; the path to the internal database
 #+end_src
 
 * Manual
